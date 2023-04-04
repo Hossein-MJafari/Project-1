@@ -1,0 +1,16 @@
+id, stock name,size,current stock,wearhouse id
+01, T-Shirt,s,10,01
+02, T-Shirt,m,10,01
+03, T-Shirt,l,10,01
+04, Shirt,s,10,01
+05, Shirt,m,10,01
+06, Shirt,l,10,01
+07, Suit,s,10,01
+08, Suit,m,10,01
+09, Suit,l,10,01
+10, Dress,s,10,01
+11, Dress,m,10,01
+12, Dress,l,10,01
+13, Pants,s,10,01
+14, Pants,m,10,01
+15, Pants,l,10,01
