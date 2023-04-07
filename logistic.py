@@ -6,4 +6,5 @@ class Time:
     def __init__(self) -> None:
         
     #abc
+    #gdg
         pass
