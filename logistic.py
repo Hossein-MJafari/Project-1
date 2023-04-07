@@ -3,4 +3,5 @@ class Address:
     pass
 
 class Time:
-    pass
+    def __init__(self) -> None:
+        pass
