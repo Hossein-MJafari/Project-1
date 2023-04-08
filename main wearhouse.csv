@@ -1,4 +1,4 @@
-id, stock_name,current_stock,wearhouse_id
+id, stock_name, size, current_stock, wearhouse_id
 01, T-Shirt,s,10,01
 01, T-Shirt,m,10,01
 01, T-Shirt,l,10,01
