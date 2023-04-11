@@ -24,4 +24,4 @@ class Payment:
 
 class Factor:
     
-#ss
+#ssg
