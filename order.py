@@ -26,7 +26,7 @@ class Payment:
         self.address = address
         self.delivery_time = delivery_time
         self.order_ID = rand.randint((10**10), (10**11-1))
-        self.payment_status = False
+        self.payment_status = None
 
     def make_payment(self, cardـnumber):
         if len(str(cardـnumber)) == 16:
@@ -34,9 +34,9 @@ class Payment:
             with open ("payment_confirmation.txt", "w") as file:
                 file.write("Payment was successful!")
         else:
+            self.payment_status = False
             with open ("payment_confirmation.txt", "w") as file:
                 file.write("Payment was unsuccessful!")
-
     pass
 
 class Factor:
