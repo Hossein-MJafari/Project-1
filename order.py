@@ -1,22 +1,23 @@
 from wearhouse import Get_Status
 import random as rand
 class Order:
-    def add_to_cart(product_name, size, quantity):
+    def __init__(self):
         # Define an empty dictionary to store the cart items
         self.cart = {}
+    def add_to_cart(product_name, size, quantity):
         if product_name in Get_Status().a["stock_name"] and size in Get_Status().a[product_name]["size"]:
             if quantity <= Get_Status().a[product_name][size]["current_stock"]:
-                if product_name in cart:
-                    self.cart[product_name][1] += quantity
+                if product_name in self.cart:
+                    if size in self.cart[product_name]:
+                        self.cart[product_name][size] += quantity
+                    else:
+                        self.cart[product_name][size] = quantity
                 else:
-                    self.cart[product_name][1] = quantity
+                    self.cart[product_name] = {size: quantity}
             else:
-                print(f"{quantity} of this item is  not available!")
-
+                print(f"{quantity} of {product_name} in size {size} is not available!")
         else:
-            print("This item is not available!")
-
-
+            print(f"{product_name} in size {size} is not available!")
     pass
 
 class Payment:
