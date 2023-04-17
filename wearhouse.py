@@ -1,11 +1,11 @@
 #this class reads main wearhouse.csv and returns a pandas dataframe
 import pandas as pd
 from order import Order
-class Get_Status:
+class Status:
     def __init__(self):
-        self.apip = pd.read_csv("main wearhouse.csv")
+        self.a = pd.read_csv("main wearhouse.csv")
     def show_status(self):
-        print('d')
+        print(self.a)
 
 #this class updates the dataframe after each order.
 class Auto_Update:
