@@ -4,15 +4,15 @@ import csv
 
 with open("orders.csv", "w") as file:
         writer=csv.writer(file)
-        writer.writerow(['quantity','order_number','pure_prize','sent_prize','tax'])
+        writer.writerow(['quantity','order_number','pure_price','sent_price','tax'])
 class Banking(Payment_data):
     def cheking_card (self):
         super().make_payment()
         if self.result=='Payment was successful!' :
             #shomare sefaresh to ghesmate factor
             #gheymato havaset bashe
-             writer.writerow([Cart.cart[product_name][size],Factor.order_number,Factor.pure_prize,Time.prize,Factor.pure_prize * 0.09])
-            
+             writer.writerow([Cart.cart[product_name][size], Payment_data.order_ID,Factor.pure_price,Time.price,Factor.pure_price * 0.09])
+           
         else :
              pass
 with open('orders.csv','r') as file:

@@ -45,7 +45,7 @@ class Address(Logistics):
             self.city=2
 
 
-        
+     
 time_chart={'noon':3,'afternoon':3}
 class Time:
     def __init__(self):
@@ -63,5 +63,6 @@ class Time:
                         print('the only time that is available is morning')
                         self.time = 'morning'
     
-        
+class sent_price :
+    def 
                 
