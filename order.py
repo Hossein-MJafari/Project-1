@@ -3,11 +3,8 @@ import random as rand
 
 
 class Cart:
-    def __init__(self):
-        # Define an empty dictionary to store the cart items
-        self.cart = {}
-
     def add_to_cart(self, database: Status, product_name, size, quantity):
+        self.cart = {}
         if product_name in list(database.a["stock_name"]) and size in list(database.a[database.a["stock_name"] == product_name]["size"]):
             if product_name in cart.keys():
                 if size in self.cart[product_name]:
@@ -35,12 +32,14 @@ class Payment_data:
     def make_payment(self, card_number):
         if len(str(cardـnumber)) == 16:
             self.payment_status = True
+            self.result="Payment was successful!"
             with open("payment_confirmation.txt", "w") as file:
-                file.write("Payment was successful!")
+                file.write(self.result)
         else:
             self.payment_status = False
+            self.result="Payment was unsuccessful!"
             with open("payment_confirmation.txt", "w") as file:
-                file.write("Payment was unsuccessful!")
+                file.write(self.result)
     pass
 
 
