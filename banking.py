@@ -32,7 +32,6 @@ class Output:
 
 
 
-
 #def is_16_digits(card_number, full_name):
  #   print("Validating your card number...")
   #  if len(str(card_number)) == 16:
