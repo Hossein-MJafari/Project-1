@@ -3,22 +3,28 @@ import random as rand
 
 
 class Cart:
-    def add_to_cart(self, database: Status, product_name, size, quantity):
+    def __init(self):
         self.cart = {}
+        self.pure_price = 0
+    def add_to_cart(self, database: Status, product_name, size, quantity):
         if product_name in list(database.a["stock_name"]) and size in list(database.a[database.a["stock_name"] == product_name]["size"]):
             if product_name in cart.keys():
                 if size in self.cart[product_name]:
                     if quantity <= (list(database.a[(database.a["stock_name"] == product_name) & (database.a["size"] == size)]['current_stock'])[0]) - cart[product_name][size]:
                         self.cart[product_name][size] += quantity
+                        self.pure_price += (list(database.a[(database.a["stock_name"] == product_name) & (database.a["size"] == size)]['price'])[0]) * quantity
                     else:
                         print(f"{quantity + cart[product_name][size]} number of {product_name} in size {size} is not available!")
                 else:
                     cart[product_name][size] = quantity
+                    self.pure_price += (list(database.a[(database.a["stock_name"] == product_name) & (database.a["size"] == size)]['price'])[0]) * quantity
             else:
                 self.cart[product_name] = {size: quantity}
+                self.pure_price += (list(database.a[(database.a["stock_name"] == product_name) & (database.a["size"] == size)]['price'])[0]) * quantity
         else:
             print(f"{product_name} in size {size} is not available!")
     pass
+
 
 class Payment_data:
     def __init__(self, name, phone_number, address, delivery_time):
