@@ -1,5 +1,5 @@
 from order import Payment_data , Cart , Factor
-from logistic import Time
+from logistic import Time , sent_price
 import csv
 
 with open("orders.csv", "w") as file:

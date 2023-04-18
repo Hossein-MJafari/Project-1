@@ -43,6 +43,11 @@ class Address(Logistics):
         elif self.state == "Tabriz" and self.city =='Sardorod':
             self.state_ID = 3
             self.city=2
+    def price(self):
+        if self.state_ID==1 :
+            self.price=30
+        else:
+            self.price=50
 
 
      
@@ -63,6 +68,5 @@ class Time:
                         print('the only time that is available is morning')
                         self.time = 'morning'
     
-class sent_price :
-    def 
+
                 
