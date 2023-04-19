@@ -1,5 +1,4 @@
 # this class reads main wearhouse.csv and returns a pandas dataframe
-from ast import Try
 import pandas as pd
 import numpy as np
 # from order import Order
@@ -7,14 +6,15 @@ import numpy as np
 
 class Status:
     def __init__(self):
-        self.a = pd.read_csv("main wearhouse.csv")
+        self.read_stat = pd.read_csv("main wearhouse.csv")
 
     def show_status(self):
-        print(self.a)
+        print(self.read_stat)
 
 # this class updates the dataframe after each order.
-# class Auto_Update:
-#      self.cart[product_name]
+class Auto_Update:
+    #  self.cart[product_name]
+    pass
 
 
 # this class updates the dataframe when the admin wants, either with file or terminal input.
