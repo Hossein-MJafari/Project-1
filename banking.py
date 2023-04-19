@@ -9,8 +9,7 @@ class Banking(Payment_data):
     def cheking_card (self):
         super().make_payment()
         if self.result=='Payment was successful!' :
-            #shomare sefaresh to ghesmate factor
-            #gheymato havaset bashe
+           
              writer.writerow([Cart.cart[product_name][size], Payment_data.order_ID,Factor.pure_price,Time.price,Factor.pure_price * 0.09])
            
         else :
