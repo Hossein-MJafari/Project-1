@@ -25,7 +25,7 @@ class Manual_Update:
     def __init__(self, warehouse_file):
         self.warehouse_file = warehouse_file
         self.stock = pd.read_csv(warehouse_file, dtype={
-                                 'id': int, 'current_stock': int, 'wearhouse_id': int})
+                                 'id': int, 'current_stock': int,'price':float, 'wearhouse_id': int})
 
     def update_with_file(self, update_file):
         if update_file.endswith('.csv'):
@@ -35,18 +35,18 @@ class Manual_Update:
             for _, row in update_df.iterrows():
                 item_id = row['id']
                 quantity = row['new_stock']
-                print(item_id, quantity)
                 self.UpdateOrAdd(item_id, quantity)
-                print(self.stock)
+                # print(self.stock)
 
         elif update_file.endswith('.txt'):
             with open(update_file, 'r') as f:
                 lines = f.readlines()
                 for line in lines:
                     item_id, quantity = line.strip().split(', ')
-                    item_id = item_id
-                    quantity = quantity
+                    item_id = int(item_id)
+                    quantity = int(quantity)
                     self.UpdateOrAdd(item_id, quantity)
+                    # print(self.stock)
 
         else:
             print("File Not Supported. Supported Files: (.txt/.csv)")
@@ -71,7 +71,12 @@ class Manual_Update:
         for size in sizes[:remaining_quantity]:
             self.stock.loc[(self.stock['id'] == item_id) & (
                 self.stock['size'] == size), 'current_stock'] += 1
+
     def UpdateOrAdd(self, item_id, quantity):
+        item_id = int(item_id)
+        quantity = int(quantity)
+        if quantity <=0 :
+            raise Exception
         stock_ids = []
         counts = []
         for i, count in upwh.stock['id'].value_counts().items():
@@ -80,58 +85,69 @@ class Manual_Update:
 
         if item_id in stock_ids and counts[stock_ids.index(item_id)] == 3:
             self.update(item_id, quantity)
-        elif item_id not in stock_ids:
+        else:
             prompt = input(
                 f"The item with id '{item_id}' is a new one, would you like to add it to your wearhouse? (yes/no) ")
             if prompt == 'yes':
                 # asking for the info to add 3 new rows for our new item in store:
                 name = input("Enter the merch's name: ")
-                price = input("Enter its price: ")
+                price = float(input("Enter its price: "))
                 wearhouse_id = input("Enter the wearhouse id: ")
                 new_rows = [
-                    {'id': item_id, 'stock_name': name, 'size': 's', 'current_stock': quantity, 'price': price, 'wearhouse_id': wearhouse_id}, 
-                    {'id': item_id, 'stock_name': name, 'size': 'm', 'current_stock': quantity, 'price': price, 'wearhouse_id': wearhouse_id}, 
-                    {'id': item_id, 'stock_name': name, 'size': 'l', 'current_stock': quantity, 'price': price, 'wearhouse_id': wearhouse_id}
-                            ]
-                self.stock = self.stock.append(new_rows, ignore_index=True)
+                    {'id': item_id, 'stock_name': name, 'size': 's',
+                        'current_stock': quantity, 'price': price, 'wearhouse_id': wearhouse_id},
+                    {'id': item_id, 'stock_name': name, 'size': 'm',
+                        'current_stock': quantity, 'price': price, 'wearhouse_id': wearhouse_id},
+                    {'id': item_id, 'stock_name': name, 'size': 'l',
+                        'current_stock': quantity, 'price': price, 'wearhouse_id': wearhouse_id}
+                ]
+                rows = pd.DataFrame(new_rows)
+                self.stock = pd.concat([self.stock, rows], ignore_index=True)
 
                 # Now that we have 3 new rows, we distribute the quantity the same way:
                 self.update(item_id, quantity)
-
-
-            elif prompt == 'no':
-                pass
-            else:
-                pass
-
-
+        
     def update_with_terminal(self):
         while True:
-            item_id = input('Enter item ID (or "done" to finish): ')
+            item_id = input('Enter the item ID (or "done" to finish): ')
             if item_id == 'done':
                 break
             try:
                 item_id = int(item_id)
-                if item_id in self.stock.index:
+
+            except ValueError:
+                print("Not a Valid Command!")
+
+            else:
+                stock_ids = []
+                counts = []
+                for i, count in upwh.stock['id'].value_counts().items():
+                    stock_ids.append(i)
+                    counts.append(count)
+                if item_id in stock_ids and counts[stock_ids.index(item_id)] == 3:
                     size = input(f'Enter size for item {item_id}: ')
                     if size in ['s', 'm', 'l']:
                         try:
                             quantity = int(
                                 input(f'Enter quantity for the item {item_id} with the size of {size}: '))
+                        except ValueError:
+                            print("Value for quantity of the item should be a number!\nTry Again")
+                        else:
                             self.stock.loc[(self.stock['id'] == item_id) & (
                                 self.stock['size'] == size), 'current_stock'] = quantity
-                        except ValueError:
-                            print(
-                                "Value for quantity of the item should be a number!\nTry Again")
+
                     else:
                         print("Not a suppoted size! Supported sizes are:\ns\nm\nl")
+                    
                 else:
-                    pass
+                    try:
+                        self.UpdateOrAdd(item_id, quantity=0)
+                    except Exception:
+                        quantity = input("Enter the new Stock: ")
+                        self.UpdateOrAdd(item_id, quantity)
+                    
 
-            except ValueError:
-                print("Not a Valid Command!")
-
-            print(self.stock)
+            # print(self.stock)
 
     def save_stock(self):
         self.stock.to_csv(self.warehouse_file, index=False)
@@ -140,7 +156,7 @@ class Manual_Update:
 # testing the Manual_Update()
 
 upwh = Manual_Update("main wearhouse.csv")
-upwh.update_with_file("update stock.csv")
+# upwh.update_with_file("update stock.csv")
 # upwh.update_with_file("update stock.txt")
 # upwh.update_with_terminal()
 # upwh.save_stock()
