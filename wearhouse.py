@@ -1,13 +1,15 @@
 # this class reads main wearhouse.csv and returns a pandas dataframe
 import pandas as pd
 import numpy as np
+from order import Payment_data , Cart
+import csv
 # from order import Order
 
 
 class Status:
     def __init__(self):
         self.read_stat = pd.read_csv("main wearhouse.csv")
-
+        
     def show_status(self):
         print(self.read_stat)
 
@@ -15,8 +17,19 @@ class Status:
 
 
 class Auto_Update:
-    #  self.cart[product_name]
-    pass
+    def auto_update(self):
+        main_csv=Status.read_stat
+        if Payment_data.payment_status==True:
+            for name in Cart.cart.keys():
+                for i in Cart.cart[name].keys():
+                    size = i
+                for j in Cart.cart[name].values():
+                    quantity = j
+    
+                main_csv.loc[(main_csv['stock_name'] == name) & (
+                main_csv['size'] == size), 'current_stock']-= quantity
+        else:
+            pass
 
 
 # this class updates the dataframe when the admin wants, either with file or terminal input.
