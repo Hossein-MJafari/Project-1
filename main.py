@@ -1,4 +1,4 @@
-#from wearhouse import
+# from wearhouse import
 import pandas as pd
 from order import Cart, Payment_data
 from wearhouse import Manual_Update 
@@ -45,11 +45,11 @@ if __name__ == '__main__':
 
                         if seller_choice == 1:
                             super().update_stock_from_csv()
-                            #return Manual_Update.update_stock_from_csv()
+                            # return Manual_Update.update_stock_from_csv()
 
                         elif seller_choice == 2:
                             super().update_stock_from_terminal()
-                            #return Manual_Update.update_stock_from_terminal()
+                            # return Manual_Update.update_stock_from_terminal()
 
                         else:
                             print("Invalid choice! Try again...")

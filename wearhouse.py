@@ -1,7 +1,7 @@
 # this class reads main wearhouse.csv and returns a pandas dataframe
 import pandas as pd
 import numpy as np
-from order import Payment_data , Cart
+from order import Payment_data, Cart
 import csv
 # from order import Order
 
@@ -18,7 +18,7 @@ class Status:
 
 class Auto_Update:
     def auto_update(self):
-        main_csv=Status.read_stat
+        main_csv = Status.read_stat
         if Payment_data.payment_status==True:
             for name in Cart.cart.keys():
                 for i in Cart.cart[name].keys():
@@ -27,7 +27,7 @@ class Auto_Update:
                     quantity = j
     
                 main_csv.loc[(main_csv['stock_name'] == name) & (
-                main_csv['size'] == size), 'current_stock']-= quantity
+                main_csv['size'] == size), 'current_stock'] -= quantity
         else:
             pass
 
@@ -99,7 +99,7 @@ class Update:
     def UpdateOrAdd(self, item_id, quantity):
         item_id = int(item_id)
         quantity = int(quantity)
-        if quantity <=0 :
+        if quantity <= 0:
             raise Exception
         stock_ids = []
         counts = []
@@ -169,7 +169,7 @@ class Update:
                     except Exception:
                         quantity = input("Enter the new Stock: ")
                         self.UpdateOrAdd(item_id, quantity)
-                    
+
 
             # print(self.stock)
 
