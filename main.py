@@ -63,6 +63,8 @@ if __name__ == '__main__':
                     seller_menu = int(input("Enter your choice: "))
                     if seller_menu == 1:
                         super().__init__()
+                        main_wearhouse=input('give your csv file path:')
+                        wearhouse_object=Update(main_wearhouse)
                         print('we have 2 options to update wear house: ')
                         print('1:giving csv')
                         print('2:giving informations')
