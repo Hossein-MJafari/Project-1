@@ -42,7 +42,7 @@ class Payment_data:
         self.payment_status = None
 
     def make_payment(self, card_number):
-        if len(str(cardـnumber)) == 16:
+        if len(str(card_number)) == 16:
             self.payment_status = True
             self.result = "Payment was successful!"
             with open("payment_confirmation.txt", "w") as file:
