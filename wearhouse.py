@@ -23,11 +23,12 @@ class Auto_Update:
             for name in Cart.cart.keys():
                 for i in Cart.cart[name].keys():
                     size = i
-                for j in Cart.cart[name].values():
-                    quantity = j
+                    for j in Cart.cart[name].values():
+                        quantity = j
+                    main_csv.loc[(main_csv['stock_name'] == name) & (
+                    main_csv['size'] == size), 'current_stock'] -= quantity
     
-                main_csv.loc[(main_csv['stock_name'] == name) & (
-                main_csv['size'] == size), 'current_stock'] -= quantity
+               
         else:
             pass
 
