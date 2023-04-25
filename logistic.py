@@ -1,4 +1,5 @@
 # in this class we will determine post or peyk.
+from order import Cart
 class Logistics:
     def __init__(self, city, state, postal_code, address_detail):
         self.peyk_orders = []
@@ -8,13 +9,13 @@ class Logistics:
         self.postal_code = postal_code
         self.address_detail = address_detail
 
-    def assign_delivery(self, order):
+    def assign_delivery(self):
         self.city_ID = Address().id().self.city_ID
         self.state_ID = Address().id().self.state_ID
         if self.state_ID == 1:
-            self.peyk_orders.append(order)
+            self.peyk_orders.append(Cart.cart)
         else:
-            self.post_orders.append(order)
+            self.post_orders.append(Cart.cart)
 
 
 
@@ -52,8 +53,8 @@ class Address(Logistics):
 
 time_chart = {'noon': 3, 'afternoon': 3}
 class Time:
-    def telling_time(self, delivery_time):
-        self.time = delivery_time
+    def __init__(self):
+        self.time = input('when do you want to recive your order:')
         if self.time != 'morning':
             if time_chart[self.time] > 0:
                 time_chart[self.time] = time_chart[self.time] - 1
@@ -66,4 +67,3 @@ class Time:
                     else:
                         print('the only time that is available is morning')
                         self.time = 'morning'
-        return self.time
