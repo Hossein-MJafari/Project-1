@@ -1,11 +1,11 @@
 # from wearhouse import
 import pandas as pd
 from order import Cart, Payment_data
-from wearhouse import Manual_Update 
+from wearhouse import Update ,Auto_Update
 from banking import Output
 from logistic import Logistics , Time
 if __name__ == '__main__':
-    class Start(Manual_Update):
+    class Start(Update):
 
         def start(self):
             print("Account mode: \n 1.customer \n 2.seller")
@@ -46,7 +46,9 @@ if __name__ == '__main__':
                             address_detail = input("Enter your address detail: ")
                             logistics_object = Logistics(city, state, postal_code, address_detail)
                             time_object = Time.telling_time(delivery_time)
-                            return order_object.make_payment(card_number)
+                            order_object.make_payment(card_number)
+                            Auto_Update.auto_update()
+                            return #factor
                     elif customer_menu == 0:
                         break
                     else:
