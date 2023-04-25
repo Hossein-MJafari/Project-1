@@ -20,10 +20,26 @@ if __name__ == '__main__':
                     customer_menu = int(input("Enter your choice: "))
                     if customer_menu == 1:
                         return pd.read_csv("main wearhouse.csv")
+                        status = "Continue"
+                        while status != "Finish":
+                            product_name = input("Enter product name:")
+                            size = input("Enter product's size: ")
+                            quantity = input("Enter product's quantity: ")
+                            Cart.add_to_cart(product_name, size, quantity)
+                            status = input("Continue Or Finish")
                     elif customer_menu == 2:
                         return Cart.cart
                     elif customer_menu == 3:
-                        return Payment_data
+                        if Cart.cart.values() == None:
+                            print("Your cart is empty!")
+                        else:
+                            name = input("Enter your name: ")
+                            phone_number = input("Enter your phone number: ")
+                            address = input("Enter your address: ")
+                            delivery_time = input("Enter your delivery_time: ")
+                            order_object = Payment_data(name, phone_number, address, delivery_time)
+                            card_number = input("Enter your card number: ")
+                            return order_object.make_payment(card_number)
                     elif customer_menu == 0:
                         break
                     else:
