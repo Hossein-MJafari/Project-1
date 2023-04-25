@@ -3,6 +3,7 @@ import pandas as pd
 from order import Cart, Payment_data
 from wearhouse import Manual_Update 
 from banking import Output
+import logistic
 if __name__ == '__main__':
     class Start(Manual_Update):
 
@@ -39,6 +40,12 @@ if __name__ == '__main__':
                             delivery_time = input("Enter your delivery_time: ")
                             order_object = Payment_data(name, phone_number, address, delivery_time)
                             card_number = input("Enter your card number: ")
+                            city = input("Enter your city: ")
+                            state = input("Enter your state: ")
+                            postal_code = input("Enter your postal code: ")
+                            address_detail = input("Enter your address detail: ")
+                            logistics_object = Logistics(city, state, postal_code, address_detail)
+                            time_object = Time().telling_time(delivery_time)
                             return order_object.make_payment(card_number)
                     elif customer_menu == 0:
                         break

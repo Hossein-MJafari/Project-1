@@ -3,8 +3,8 @@ class Logistics:
     def __init__(self, city, state, postal_code, address_detail):
         self.peyk_orders = []
         self.post_orders = []
-        self.city=city
-        self.state=state
+        self.city = city
+        self.state = state
         self.postal_code = postal_code
         self.address_detail = address_detail
 
@@ -52,8 +52,8 @@ class Address(Logistics):
 
 time_chart = {'noon': 3, 'afternoon': 3}
 class Time:
-    def __init__(self):
-        self.time = input('when do you want to recive your order:')
+    def telling_time(self, delivery_time):
+        self.time = delivery_time
         if self.time != 'morning':
             if time_chart[self.time] > 0:
                 time_chart[self.time] = time_chart[self.time] - 1
@@ -66,3 +66,4 @@ class Time:
                     else:
                         print('the only time that is available is morning')
                         self.time = 'morning'
+        return self.time
