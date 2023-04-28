@@ -1,5 +1,7 @@
 # in this class we will determine post or peyk.
 from order import Cart
+
+
 class Logistics:
     def __init__(self, city, state, postal_code, address_detail):
         self.peyk_orders = []
@@ -16,7 +18,6 @@ class Logistics:
             self.peyk_orders.append(Cart.cart)
         else:
             self.post_orders.append(Cart.cart)
-
 
 
 class Address(Logistics):
@@ -44,6 +45,7 @@ class Address(Logistics):
         elif self.state == "Tabriz" and self.city == 'Sardorod':
             self.state_ID = 3
             self.city = 2
+
     def price(self):
         if self.state_ID == 1:
             self.price = 30
@@ -52,6 +54,8 @@ class Address(Logistics):
 
 
 time_chart = {'noon': 3, 'afternoon': 3}
+
+
 class Time:
     def __init__(self):
         self.time = input('when do you want to recive your order:')

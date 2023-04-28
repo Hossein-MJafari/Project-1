@@ -7,7 +7,7 @@ class Cart:
         self.cart = {}
         self.pure_price = 0
 
-    def add_to_cart(self, database: Status.read_stat , product_name, size, quantity):
+    def add_to_cart(self, database: Status.read_stat, product_name, size, quantity):
         if product_name in list(database.a["stock_name"]) and\
                 size in list(database.a[database.a["stock_name"] == product_name]["size"]):
             if product_name in self.cart.keys():

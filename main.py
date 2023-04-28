@@ -1,9 +1,9 @@
 # from wearhouse import
 import pandas as pd
 from order import Cart, Payment_data
-from wearhouse import Update ,Auto_Update
+from wearhouse import Update, Auto_Update
 from banking import Output
-from logistic import Logistics , Time
+from logistic import Logistics, Time
 if __name__ == '__main__':
     class Start(Update):
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
                     elif customer_menu == 2:
                         return Cart.cart
                     elif customer_menu == 3:
-                        if Cart.cart.values() == None:
+                        if not Cart.cart:
                             print("Your cart is empty!")
                         else:
                             name = input("Enter your name: ")
@@ -63,8 +63,8 @@ if __name__ == '__main__':
                     seller_menu = int(input("Enter your choice: "))
                     if seller_menu == 1:
                         super().__init__()
-                        main_wearhouse=input('give your csv file path:')
-                        wearhouse_object=Update(main_wearhouse)
+                        main_wearhouse = input('give your csv file path:')
+                        wearhouse_object = Update(main_wearhouse)
                         print('we have 2 options to update wear house: ')
                         print('1:giving csv')
                         print('2:giving informations')
