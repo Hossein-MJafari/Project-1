@@ -1,4 +1,3 @@
-# from wearhouse import
 import pandas as pd
 from order import Cart, Payment_data
 from wearhouse import Update, Auto_Update
