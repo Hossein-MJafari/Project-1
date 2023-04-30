@@ -54,7 +54,7 @@ class Payment_data:
             self.result = "Payment was unsuccessful!"
             with open("payment_confirmation.txt", "w") as file:
                 file.write(self.result)
-    pass
+        return file
 
 
 class Factor:
@@ -62,4 +62,21 @@ class Factor:
         self.payment_data = payment_data
         self.cart = cart
 
-    pass
+    def create_factor(self):
+        product_price = {}
+        for name in self.cart.cart.keys():
+            for i in self.cart.cart[name].keys():
+                size = i
+                for j in self.cart.cart[name].values():
+                    quantity = j
+                    price = quantity * int(list(database[(database["stock_name"] == name) & (
+                            database["size"] == size)]['price'])[0])
+                    product_price[name] = price
+        with open("fact.txt", "w") as file:
+            file.write(f"{product_price}")
+            file.write(f"Order ID: {self.payment_data.order_ID}")
+            file.write(f"Address: {self.payment_data.address}")
+            file.write(f"Name: {self.payment_data.name}")
+            file.write(f"Delivery time: {self.payment_data.delivery_time}")
+            file.write(f"Delivery type: ")
+        return file

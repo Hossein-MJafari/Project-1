@@ -19,18 +19,19 @@ if __name__ == '__main__':
                     print("0.exit customer mode")
                     customer_menu = int(input("Enter your choice: "))
                     if customer_menu == 1:
+                        cart_object = Cart()
                         return pd.read_csv("main wearhouse.csv")
                         status = "Continue"
                         while status != "Finish":
                             product_name = input("Enter product name:")
                             size = input("Enter product's size: ")
                             quantity = input("Enter product's quantity: ")
-                            Cart.add_to_cart(product_name, size, quantity)
+                            cart_object.add_to_cart(product_name, size, quantity)
                             status = input("Continue Or Finish")
                     elif customer_menu == 2:
-                        return Cart.cart
+                        return cart_object
                     elif customer_menu == 3:
-                        if not Cart.cart:
+                        if not cart_object:
                             print("Your cart is empty!")
                         else:
                             name = input("Enter your name: ")
@@ -48,7 +49,7 @@ if __name__ == '__main__':
                             order_object.make_payment(card_number)
                             Auto_Update.auto_update()
                             Banking.cheking_card()
-                            return #factor
+                            factor_object = Factor(order_object, cart_object)
                     elif customer_menu == 0:
                         break
                     else:

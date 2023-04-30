@@ -19,7 +19,7 @@ class Status:
 class Auto_Update:
     def auto_update(self):
         main_csv = Status.read_stat
-        if Payment_data.payment_status==True:
+        if Payment_data.payment_status == True:
             for name in Cart.cart.keys():
                 for i in Cart.cart[name].keys():
                     size = i
@@ -27,8 +27,6 @@ class Auto_Update:
                         quantity = j
                     main_csv.loc[(main_csv['stock_name'] == name) & (
                     main_csv['size'] == size), 'current_stock'] -= quantity
-    
-               
         else:
             pass
 
@@ -39,8 +37,7 @@ class Update:
     def __init__(self, warehouse_file):
         self.warehouse_file = warehouse_file
         self.stock = pd.read_csv(warehouse_file, dtype={
-                                 'id': int, 'current_stock': int,'price':float, 'wearhouse_id': int})
-
+                                 'id': int, 'current_stock': int, 'price': float, 'wearhouse_id': int})
 
     def update_with_file(self, update_file):
         if update_file.endswith('.csv'):
@@ -160,8 +157,6 @@ class Update:
                     except Exception:
                         quantity = input("Enter the new Stock: ")
                         self.UpdateOrAdd(item_id, quantity)
-
-
             # print(self.stock)
 
     def save_stock(self):
