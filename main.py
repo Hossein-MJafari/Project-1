@@ -1,7 +1,7 @@
 import pandas as pd
 from order import Cart, Payment_data
 from wearhouse import Update, Auto_Update
-from banking import Output
+from banking import *
 from logistic import Logistics, Time
 if __name__ == '__main__':
     class Start(Update):
@@ -47,6 +47,7 @@ if __name__ == '__main__':
                             time_object = Time.telling_time(delivery_time)
                             order_object.make_payment(card_number)
                             Auto_Update.auto_update()
+                            Banking.cheking_card()
                             return #factor
                     elif customer_menu == 0:
                         break
@@ -80,7 +81,7 @@ if __name__ == '__main__':
                         else:
                             print("Invalid choice! Try again...")
                     elif seller_menu == 2:
-                        return Output
+                        Output.output()
                     elif seller_menu == 0:
                         break
                     else:
