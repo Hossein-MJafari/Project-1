@@ -1,7 +1,7 @@
 import pandas as pd
 from order import Cart, Payment_data
 from wearhouse import Update, Auto_Update
-from banking import Output
+from banking import *
 from logistic import Logistics, Time
 if __name__ == '__main__':
     class Start(Update):
@@ -47,6 +47,7 @@ if __name__ == '__main__':
                             time_object = Time.telling_time(delivery_time)
                             order_object.make_payment(card_number)
                             Auto_Update.auto_update()
+                            Banking.cheking_card()
                             return #factor
                     elif customer_menu == 0:
                         break
@@ -62,25 +63,25 @@ if __name__ == '__main__':
                     seller_menu = int(input("Enter your choice: "))
                     if seller_menu == 1:
                         super().__init__()
-                        main_wearhouse = input('give your csv file path:')
-                        wearhouse_object = Update(main_wearhouse)
+                        update_wearhouse = input('give your csv file path:')
+                        wearhouse_object = Update(update_wearhouse)
                         print('we have 2 options to update wear house: ')
                         print('1:giving csv')
                         print('2:giving informations')
                         seller_choice = int(input('Enter your choice:'))
 
                         if seller_choice == 1:
-                            super().update_stock_from_csv()
+                            wearhouse_object.update_with_file(update_wearhouse)
                             # return Manual_Update.update_stock_from_csv()
-
+                            wearhouse_object.save_stock()
                         elif seller_choice == 2:
-                            super().update_stock_from_terminal()
+                            wearhouse_object.update_with_terminal()
                             # return Manual_Update.update_stock_from_terminal()
-
+                            wearhouse_object.save_stock()
                         else:
                             print("Invalid choice! Try again...")
                     elif seller_menu == 2:
-                        return Output
+                        Output.output()
                     elif seller_menu == 0:
                         break
                     else:

@@ -40,17 +40,7 @@ class Update:
         self.warehouse_file = warehouse_file
         self.stock = pd.read_csv(warehouse_file, dtype={
                                  'id': int, 'current_stock': int,'price':float, 'wearhouse_id': int})
-        while True:
-            self.approach = input("How do you want to update/add your wearhouses? (file/terminal)\n***Type 'quit' to exit\n")
-            if self.approach.lower() == "file":
-                update_file = input("Enter the full directory of the file with its extention(.txt/.csv): ")
-                self.update_with_file(update_file)
-            elif self.approach.lower() == "terminal":
-                self.update_with_terminal()
-            elif self.approach.lower() == "quit":
-                break
-            else:
-                print("Invalid way of updating. type either 'file' or 'terminal' or 'quit' for exit.")
+
 
     def update_with_file(self, update_file):
         if update_file.endswith('.csv'):
