@@ -62,21 +62,21 @@ if __name__ == '__main__':
                     seller_menu = int(input("Enter your choice: "))
                     if seller_menu == 1:
                         super().__init__()
-                        main_wearhouse = input('give your csv file path:')
-                        wearhouse_object = Update(main_wearhouse)
+                        update_wearhouse = input('give your csv file path:')
+                        wearhouse_object = Update(update_wearhouse)
                         print('we have 2 options to update wear house: ')
                         print('1:giving csv')
                         print('2:giving informations')
                         seller_choice = int(input('Enter your choice:'))
 
                         if seller_choice == 1:
-                            super().update_stock_from_csv()
+                            wearhouse_object.update_with_file(update_wearhouse)
                             # return Manual_Update.update_stock_from_csv()
-
+                            wearhouse_object.save_stock()
                         elif seller_choice == 2:
-                            super().update_stock_from_terminal()
+                            wearhouse_object.update_with_terminal()
                             # return Manual_Update.update_stock_from_terminal()
-
+                            wearhouse_object.save_stock()
                         else:
                             print("Invalid choice! Try again...")
                     elif seller_menu == 2:
