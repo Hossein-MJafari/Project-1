@@ -10,27 +10,34 @@ class Cart:
         self.pure_price = 0
 
     def add_to_cart(self, database, product_name, size, quantity):
-        if product_name in list(database["stock_name"]) and\
-                size in list(database[database["stock_name"] == product_name]["size"]):
-            if product_name in self.cart.keys():
-                if size in self.cart[product_name]:
-                    if quantity <= (list(database[(database["stock_name"] == product_name) & (
-                            database["size"] == size)]['current_stock'])[0]) - self.cart[product_name][size]:
-                        self.cart[product_name][size] += quantity
+        if product_name in list(database["stock_name"]):
+            if size in list(database[database["stock_name"] == product_name]["size"]):
+                if quantity <= (list(database[(database["stock_name"] == product_name) & (
+                        database["size"] == size)]['current_stock'])[0]):
+                    if product_name in self.cart.keys():
+                        if size in self.cart[product_name]:
+                            if quantity <= (list(database[(database["stock_name"] == product_name) & (
+                                    database["size"] == size)]['current_stock'])[0]) - self.cart[product_name][size]:
+                                self.cart[product_name][size] += quantity
+                                self.pure_price += (list(database[(database["stock_name"] == product_name) & (
+                                        database["size"] == size)]['price'])[0]) * quantity
+                            else:
+                                print(
+                                    f"{quantity + self.cart[product_name][size]} number of {product_name} in size {size} is not available!")
+                        else:
+                            self.cart[product_name][size] = quantity
+                            self.pure_price += (list(database[(database["stock_name"] == product_name) & (
+                                    database["size"] == size)]['price'])[0]) * quantity
+                    else:
+                        self.cart[product_name] = {size: quantity}
                         self.pure_price += (list(database[(database["stock_name"] == product_name) & (
                                 database["size"] == size)]['price'])[0]) * quantity
-                    else:
-                        print(f"{quantity + self.cart[product_name][size]} number of {product_name} in size {size} is not available!")
                 else:
-                    self.cart[product_name][size] = quantity
-                    self.pure_price += (list(database[(database["stock_name"] == product_name) & (
-                            database["size"] == size)]['price'])[0]) * quantity
+                    print(f"{quantity} number of {product_name} in size {size} is not available!")
             else:
-                self.cart[product_name] = {size: quantity}
-                self.pure_price += (list(database[(database["stock_name"] == product_name) & (
-                        database["size"] == size)]['price'])[0]) * quantity
+                print(f"{product_name} in size {size} is not available!")
         else:
-            print(f"{product_name} in size {size} is not available!")
+            print(f"{product_name} is not available!")
     
 
 
