@@ -24,8 +24,7 @@ class Update:
             for name in cart_object.cart.keys():
                 for i in cart_object.cart[name].keys():
                     size = i
-                    for j in cart_object.cart[name].values():
-                        quantity = j
+                    quantity = cart_object.cart[name][size]
                     main_csv.loc[(main_csv['stock_name'] == name) & (
                     main_csv['size'] == size), 'current_stock'] -= quantity
             self.read_stat.to_csv(self.warehouse_file, index=False)
@@ -93,9 +92,9 @@ class Update:
                 f"The item with id '{item_id}' is a new one, would you like to add it to your wearhouse? (yes/no) ")
             if prompt == 'yes':
                 # asking for the info to add 3 new rows for our new item in store:
-                name = input("Enter the merch's name: ")
+                name = input("Enter the merch's name: ").lower()
                 price = float(input("Enter its price: "))
-                wearhouse_id = input("Enter the wearhouse id: ")
+                wearhouse_id = input("Enter the wearhouse id (1/2/3): ")
                 new_rows = [
                     {'id': item_id, 'stock_name': name, 'size': 's',
                         'current_stock': quantity, 'price': price, 'wearhouse_id': wearhouse_id},
@@ -112,7 +111,7 @@ class Update:
         
     def update_with_terminal(self):
         while True:
-            item_id = input('Enter the item ID (or "done" to finish): ')
+            item_id = input('Enter the item ID (or "done" to finish): ').lower()
             if item_id == 'done':
                 break
             try:
@@ -128,7 +127,7 @@ class Update:
                     stock_ids.append(i)
                     counts.append(count)
                 if item_id in stock_ids and counts[stock_ids.index(item_id)] == 3:
-                    size = input(f'Enter size for item {item_id}: ')
+                    size = input(f'Enter size for item {item_id}: ').lower()
                     if size in ['s', 'm', 'l']:
                         try:
                             quantity = int(

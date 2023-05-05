@@ -27,13 +27,13 @@ if __name__ == '__main__':
                         cart_object = Cart()
                         print(pd.read_csv("main wearhouse.csv"))
                         status = "Continue"
-                        while status != "Finish":
-                            product_name = input("Enter product name: ")
-                            size = input("Enter product's size: ")
+                        while status != "finish":
+                            product_name = input("Enter product name: ").lower()
+                            size = input("Enter product's size: ").lower()
                             quantity = int(input("Enter product's quantity: "))
                             cart_object.add_to_cart(
                                 database, product_name, size, quantity)
-                            status = input("Continue Or Finish? ")
+                            status = input("Continue / Finish? ").lower()
                     elif customer_menu == 2:
                         try:
                             print(cart_object.cart)
@@ -47,14 +47,20 @@ if __name__ == '__main__':
                         else:
                             name = input("Enter your name: ")
                             phone_number = input("Enter your phone number: ")
+                            while len(phone_number) != 10:
+                                print("The number should be 10 digits, please try again.")
+                                phone_number = input("Enter your phone number: ")
                             address = input("Enter your address: ")
                             delivery_time = input("Enter your delivery_time: ")
                             order_object = Payment_data(
                                 name, phone_number, address)
                             card_number = input("Enter your card number: ")
-                            city = input("Enter your city: ")
-                            state = input("Enter your state: ")
+                            city = input("Enter your city: ").lower()
+                            state = input("Enter your state: ").lower()
                             postal_code = input("Enter your postal code: ")
+                            while len(postal_code) != 10:
+                                print("The number should be 10 digits, please try again.")
+                                postal_code = input("Enter your postal code: ")
                             address_detail = input(
                                 "Enter your address detail: ")
                             logistics_object = Logistics(

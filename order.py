@@ -82,9 +82,10 @@ class Factor:
         for name in self.cart.cart.keys():
             for i in self.cart.cart[name].keys():
                 size = i
+                price = 0
                 for j in self.cart.cart[name].values():
                     quantity = j
-                    price = quantity * int(list(database[(database["stock_name"] == name) & (
+                    price += quantity * int(list(database[(database["stock_name"] == name) & (
                             database["size"] == size)]['price'])[0])
                     product_price[name] = price
         with open("fact.txt", "w") as file:
