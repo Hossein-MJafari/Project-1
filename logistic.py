@@ -12,18 +12,26 @@ class Logistics:
         self.address_detail = address_detail
 
     def assign_delivery(self):
-        self.city_ID = Address().id().self.city_ID
-        self.state_ID = Address().id().self.state_ID
+        self.city_ID = Address(self).id().self.city_ID
+        self.state_ID = Address(self).id().self.state_ID
+        delivery_method = ""
         if self.state_ID == 1:
             self.peyk_orders.append(Cart.cart)
+            delivery_method = "Peyk"
+            print(f"Your order will be delivered by {delivery_method}.")
         else:
             self.post_orders.append(Cart.cart)
+            delivery_method = "Post"
+            print(f"Your order will be delivered by {delivery_method}.")
+        return delivery_method
 
 
 class Address():
     def __init__(self, logistics_object):
         self.state_ID = None
         self.city_ID = None
+        self.state = None
+        self.city = None
         self.logistic = logistics_object
 
     def id(self):
@@ -71,3 +79,4 @@ class Time:
                     else:
                         print('the only time that is available is morning')
                         self.time = 'morning'
+        print(f"Your estimated time is {self.time}.")

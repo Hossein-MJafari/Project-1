@@ -59,7 +59,9 @@ if __name__ == '__main__':
                             order_object.make_payment(card_number)
                             Update_obj.auto_update(order_object, cart_object)
                             Banking(name, phone_number, address, delivery_time).cheking_card(card_number, cart_object, address)
+                            delivery_method = logistics_object.assign_delivery()
                             factor_object = Factor(order_object, cart_object)
+                            factor_object.create_factor(delivery_method)
                     elif customer_menu == 0:
                         break
                     else:

@@ -72,7 +72,7 @@ class Factor:
         self.payment_data = payment_data
         self.cart = cart
 
-    def create_factor(self):
+    def create_factor(self, delivery_method):
         product_price = {}
         for name in self.cart.cart.keys():
             for i in self.cart.cart[name].keys():
@@ -83,10 +83,10 @@ class Factor:
                             database["size"] == size)]['price'])[0])
                     product_price[name] = price
         with open("fact.txt", "w") as file:
-            file.write(f"{product_price}")
-            file.write(f"Order ID: {self.payment_data.order_ID}")
-            file.write(f"Address: {self.payment_data.address}")
-            file.write(f"Name: {self.payment_data.name}")
-            file.write(f"Delivery time: {self.payment_data.delivery_time}")
-            file.write(f"Delivery type: ")
+            file.write(f"{product_price}\n")
+            file.write(f"Order ID: {self.payment_data.order_ID}\n")
+            file.write(f"Address: {self.payment_data.address}\n")
+            file.write(f"Name: {self.payment_data.name}\n")
+            file.write(f"Delivery time: {self.payment_data.delivery_time}\n")
+            file.write(f"Delivery type: {delivery_method}\n")
         return file
