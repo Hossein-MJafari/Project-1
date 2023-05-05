@@ -1,0 +1,6 @@
+{'Dress': 600}
+Order ID: 36849905663
+Address: f
+Name: h
+Delivery time: noon
+Delivery type: None

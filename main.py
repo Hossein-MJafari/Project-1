@@ -5,7 +5,8 @@ from banking import *
 from logistic import *
 
 
-Update_obj = Update("main wearhouse.csv")
+wearhouse_object = Update("main wearhouse.csv")
+bank_output = Output()
 
 if __name__ == '__main__':
     class Start(Update):
@@ -30,7 +31,8 @@ if __name__ == '__main__':
                             product_name = input("Enter product name: ")
                             size = input("Enter product's size: ")
                             quantity = int(input("Enter product's quantity: "))
-                            cart_object.add_to_cart(database, product_name, size, quantity)
+                            cart_object.add_to_cart(
+                                database, product_name, size, quantity)
                             status = input("Continue Or Finish? ")
                     elif customer_menu == 2:
                         try:
@@ -47,20 +49,28 @@ if __name__ == '__main__':
                             phone_number = input("Enter your phone number: ")
                             address = input("Enter your address: ")
                             delivery_time = input("Enter your delivery_time: ")
-                            order_object = Payment_data(name, phone_number, address, delivery_time)
+                            order_object = Payment_data(
+                                name, phone_number, address)
                             card_number = input("Enter your card number: ")
                             city = input("Enter your city: ")
                             state = input("Enter your state: ")
                             postal_code = input("Enter your postal code: ")
-                            address_detail = input("Enter your address detail: ")
-                            logistics_object = Logistics(city, state, postal_code, address_detail)
-                            address = Address(logistics_object)
-                            time_object = Time(delivery_time)
+                            address_detail = input(
+                                "Enter your address detail: ")
+                            logistics_object = Logistics(
+                                city, state, postal_code, address_detail)
+                            address = Address(
+                                city, state, postal_code, address_detail)
                             order_object.make_payment(card_number)
-                            Update_obj.auto_update(order_object, cart_object)
-                            Banking(name, phone_number, address, delivery_time).cheking_card(card_number, cart_object, address)
-                            delivery_method = logistics_object.assign_delivery()
-                            factor_object = Factor(order_object, cart_object)
+
+                            wearhouse_object.auto_update(cart_object, order_object, card_number)
+                            bank_obj = Banking(name, phone_number, address)
+                            bank_obj.cheking_card(
+                                card_number, cart_object, address, order_object)
+                            delivery_method = logistics_object.assign_delivery(
+                                cart_object, order_object, card_number)
+                            factor_object = Factor(order_object, cart_object, delivery_time)
+                            Time(delivery_time, order_object, card_number).Delivery_time()
                             factor_object.create_factor(delivery_method)
                     elif customer_menu == 0:
                         break
@@ -75,15 +85,13 @@ if __name__ == '__main__':
                     print("0.Exit seller mode")
                     seller_menu = int(input("Enter your choice: "))
                     if seller_menu == 1:
-                        super().__init__()
-                        update_wearhouse = input('give your csv file path:')
-                        wearhouse_object = Update(update_wearhouse)
                         print('we have 2 options to update wear house: ')
-                        print('1:giving csv')
+                        print('1:giving file')
                         print('2:giving informations')
                         seller_choice = int(input('Enter your choice:'))
 
                         if seller_choice == 1:
+                            update_wearhouse = input('give your file path:')
                             wearhouse_object.update_with_file(update_wearhouse)
                             # return Manual_Update.update_stock_from_csv()
                             wearhouse_object.save_stock()
@@ -94,7 +102,7 @@ if __name__ == '__main__':
                         else:
                             print("Invalid choice! Try again...")
                     elif seller_menu == 2:
-                        Output.output()
+                        bank_output.output()
                     elif seller_menu == 0:
                         break
                     else:

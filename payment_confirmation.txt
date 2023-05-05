@@ -1,1 +1,1 @@
-Payment was successful!
+Payment was unsuccessful!

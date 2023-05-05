@@ -3,36 +3,6 @@ import pandas as pd
 import numpy as np
 from order import *
 
-# from order import Order
-
-
-# class Status:
-#     def __init__(self):
-#         self.read_stat = pd.read_csv("main wearhouse.csv")
-        
-#     def show_status(self):
-#         print(self.read_stat)
-
-# Status()
-
-# this class updates the dataframe after each order.
-
-
-# class Auto_Update:
-#     def __init__(self):
-#         pass
-#     def auto_update(self):
-#         main_csv = Status.read_stat
-#         if Payment_data.payment_status == True:
-#             for name in Cart.cart.keys():
-#                 for i in Cart.cart[name].keys():
-#                     size = i
-#                     for j in Cart.cart[name].values():
-#                         quantity = j
-#                     main_csv.loc[(main_csv['stock_name'] == name) & (
-#                     main_csv['size'] == size), 'current_stock'] -= quantity
-
-# Auto_Update()
 
 
 # this class updates the dataframe when the admin wants, either with file or terminal input.
@@ -48,9 +18,9 @@ class Update:
     def show_status(self):
         print(self.read_stat)
 
-    def auto_update(self, order_object, cart_object):
+    def auto_update(self, cart_object, order_object, card_number):
         main_csv = self.read_stat
-        if order_object.payment_status == True:
+        if order_object.make_payment(card_number)[1] == 1:
             for name in cart_object.cart.keys():
                 for i in cart_object.cart[name].keys():
                     size = i
@@ -58,6 +28,7 @@ class Update:
                         quantity = j
                     main_csv.loc[(main_csv['stock_name'] == name) & (
                     main_csv['size'] == size), 'current_stock'] -= quantity
+            self.read_stat.to_csv(self.warehouse_file, index=False)
 
     def update_with_file(self, update_file):
         if update_file.endswith('.csv'):
@@ -153,7 +124,7 @@ class Update:
             else:
                 stock_ids = []
                 counts = []
-                for i, count in upwh.stock['id'].value_counts().items():
+                for i, count in self.stock['id'].value_counts().items():
                     stock_ids.append(i)
                     counts.append(count)
                 if item_id in stock_ids and counts[stock_ids.index(item_id)] == 3:
@@ -185,7 +156,7 @@ class Update:
 
 # testing the Manual_Update()
 
-upwh = Update("main wearhouse.csv")
+# upwh = Update("main wearhouse.csv")
 # upwh.update_with_file("update stock.csv")
 # upwh.update_with_file("update stock.txt")
 # upwh.update_with_terminal()
