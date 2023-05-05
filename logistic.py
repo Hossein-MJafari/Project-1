@@ -12,7 +12,7 @@ class Logistics:
         self.address_detail = address_detail
 
     def assign_delivery(self, cart_object, order_object, card_number):
-        if order_object.make_payment(card_number)[1] == 1:
+        if order_object.make_payment(card_number) == 1:
             self.city_ID = Address(self.city, self.state, self.postal_code, self.address_detail).id()[0]
             self.state_ID = Address(self.city, self.state, self.postal_code, self.address_detail).id()[1]
             delivery_method = ""
@@ -69,7 +69,7 @@ time_chart = {'noon': 3, 'afternoon': 3}
 
 class Time:
     def __init__(self, delivery_time, order_object, card_number):
-        if order_object.make_payment(card_number)[1] == 1:
+        if order_object.make_payment(card_number) == 1:
             self.time = delivery_time
             if self.time != 'morning':
                 if time_chart[self.time] > 0:

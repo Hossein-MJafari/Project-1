@@ -20,7 +20,7 @@ class Update:
 
     def auto_update(self, cart_object, order_object, card_number):
         main_csv = self.read_stat
-        if order_object.make_payment(card_number)[1] == 1:
+        if order_object.make_payment(card_number) == 1:
             for name in cart_object.cart.keys():
                 for i in cart_object.cart[name].keys():
                     size = i

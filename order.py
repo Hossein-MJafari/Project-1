@@ -62,7 +62,7 @@ class Payment_data:
             result = "Payment was unsuccessful!"
             with open("payment_confirmation.txt", "w") as file:
                 file.write(result)
-        return file, self.payment_status
+        return self.payment_status
 
 # print(Payment_data("name", "0123456789", "f").make_payment("0123456789123456"))
 class Factor:

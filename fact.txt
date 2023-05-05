@@ -1,6 +1,6 @@
-{'Dress': 600}
-Order ID: 36849905663
-Address: f
-Name: h
+{'Dress': 400}
+Order ID: 42191502432
+Address: hhh
+Name: k
 Delivery time: noon
-Delivery type: None
+Delivery type: Peyk

@@ -10,7 +10,7 @@ class Banking(Payment_data):
     def cheking_card(self, card_number, cart_object, address, order_object):
         super().make_payment(card_number)
         total_quantity = 0
-        if order_object.make_payment(card_number)[1] == 1:
+        if order_object.make_payment(card_number) == 1:
           for i in cart_object.cart.values():
                     for j in i.values():
                          total_quantity += j
@@ -25,6 +25,4 @@ class Banking(Payment_data):
 
 class Output:
     def output(self):
-        with open('orders.csv', 'r') as file:
-            reader = csv.reader(file)
-            return reader
+        print(pd.read_csv("orders.csv"))
