@@ -1,5 +1,5 @@
 # in this class we will determine post or peyk.
-from order import Cart
+from order import *
 
 
 class Logistics:
@@ -20,11 +20,11 @@ class Logistics:
             self.post_orders.append(Cart.cart)
 
 
-class Address(Logistics):
-    def __init__(self):
-        super().__init__()
+class Address():
+    def __init__(self, logistics_object):
         self.state_ID = None
         self.city_ID = None
+        self.logistic = logistics_object
 
     def id(self):
         if self.state == "Tehran" and self.city == 'Parand':

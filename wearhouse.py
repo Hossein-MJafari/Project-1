@@ -48,13 +48,13 @@ class Update:
     def show_status(self):
         print(self.read_stat)
 
-    def auto_update(self, order_object):
+    def auto_update(self, order_object, cart_object):
         main_csv = self.read_stat
         if order_object.payment_status == True:
-            for name in Cart.cart.keys():
-                for i in Cart.cart[name].keys():
+            for name in cart_object.cart.keys():
+                for i in cart_object.cart[name].keys():
                     size = i
-                    for j in Cart.cart[name].values():
+                    for j in cart_object.cart[name].values():
                         quantity = j
                     main_csv.loc[(main_csv['stock_name'] == name) & (
                     main_csv['size'] == size), 'current_stock'] -= quantity

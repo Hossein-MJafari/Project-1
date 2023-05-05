@@ -1,1 +1,1 @@
-quantity,order_number,pure_price,sent_price,tax
+2,40852027345,500.0,<bound method Address.price of <logistic.Address object at 0x0000019B1761F410>>,45.0
