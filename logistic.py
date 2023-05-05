@@ -57,8 +57,8 @@ time_chart = {'noon': 3, 'afternoon': 3}
 
 
 class Time:
-    def __init__(self):
-        self.time = input('when do you want to recive your order:')
+    def __init__(self, delivery_time):
+        self.time = delivery_time
         if self.time != 'morning':
             if time_chart[self.time] > 0:
                 time_chart[self.time] = time_chart[self.time] - 1

@@ -5,30 +5,30 @@ database = pd.read_csv("main wearhouse.csv")
 
 
 class Cart:
-    def __init(self):
+    def __init__(self):
         self.cart = {}
         self.pure_price = 0
 
     def add_to_cart(self, database, product_name, size, quantity):
-        if product_name in list(database.a["stock_name"]) and\
-                size in list(database.a[database.a["stock_name"] == product_name]["size"]):
+        if product_name in list(database["stock_name"]) and\
+                size in list(database[database["stock_name"] == product_name]["size"]):
             if product_name in self.cart.keys():
                 if size in self.cart[product_name]:
-                    if quantity <= (list(database.a[(database.a["stock_name"] == product_name) & (
-                            database.a["size"] == size)]['current_stock'])[0]) - self.cart[product_name][size]:
+                    if quantity <= (list(database[(database["stock_name"] == product_name) & (
+                            database["size"] == size)]['current_stock'])[0]) - self.cart[product_name][size]:
                         self.cart[product_name][size] += quantity
-                        self.pure_price += (list(database.a[(database.a["stock_name"] == product_name) & (
-                                database.a["size"] == size)]['price'])[0]) * quantity
+                        self.pure_price += (list(database[(database["stock_name"] == product_name) & (
+                                database["size"] == size)]['price'])[0]) * quantity
                     else:
                         print(f"{quantity + self.cart[product_name][size]} number of {product_name} in size {size} is not available!")
                 else:
                     self.cart[product_name][size] = quantity
-                    self.pure_price += (list(database.a[(database.a["stock_name"] == product_name) & (
-                            database.a["size"] == size)]['price'])[0]) * quantity
+                    self.pure_price += (list(database[(database["stock_name"] == product_name) & (
+                            database["size"] == size)]['price'])[0]) * quantity
             else:
                 self.cart[product_name] = {size: quantity}
-                self.pure_price += (list(database.a[(database.a["stock_name"] == product_name) & (
-                        database.a["size"] == size)]['price'])[0]) * quantity
+                self.pure_price += (list(database[(database["stock_name"] == product_name) & (
+                        database["size"] == size)]['price'])[0]) * quantity
         else:
             print(f"{product_name} in size {size} is not available!")
     pass
@@ -42,6 +42,9 @@ class Payment_data:
         self.delivery_time = delivery_time
         self.order_ID = rand.randint((10**10), (10**11-1))
         self.payment_status = None
+
+    def payment_status(self):
+        print(self.payment_status)
 
     def make_payment(self, card_number):
         if len(str(card_number)) == 16:

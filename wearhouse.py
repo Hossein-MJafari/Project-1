@@ -1,25 +1,56 @@
 # this class reads main wearhouse.csv and returns a pandas dataframe
 import pandas as pd
 import numpy as np
-from order import Payment_data, Cart
-import csv
+from order import *
+
 # from order import Order
 
 
-class Status:
-    def __init__(self):
-        self.read_stat = pd.read_csv("main wearhouse.csv")
+# class Status:
+#     def __init__(self):
+#         self.read_stat = pd.read_csv("main wearhouse.csv")
         
-    def show_status(self):
-        print(self.read_stat)
+#     def show_status(self):
+#         print(self.read_stat)
+
+# Status()
 
 # this class updates the dataframe after each order.
 
 
-class Auto_Update:
-    def auto_update(self):
-        main_csv = Status.read_stat
-        if Payment_data.payment_status == True:
+# class Auto_Update:
+#     def __init__(self):
+#         pass
+#     def auto_update(self):
+#         main_csv = Status.read_stat
+#         if Payment_data.payment_status == True:
+#             for name in Cart.cart.keys():
+#                 for i in Cart.cart[name].keys():
+#                     size = i
+#                     for j in Cart.cart[name].values():
+#                         quantity = j
+#                     main_csv.loc[(main_csv['stock_name'] == name) & (
+#                     main_csv['size'] == size), 'current_stock'] -= quantity
+
+# Auto_Update()
+
+
+# this class updates the dataframe when the admin wants, either with file or terminal input.
+class Update:
+
+    def __init__(self, warehouse_file):
+        self.read_stat = pd.read_csv(warehouse_file)
+
+        self.warehouse_file = warehouse_file
+        self.stock = pd.read_csv(warehouse_file, dtype={
+                                 'id': int, 'current_stock': int, 'price': float, 'wearhouse_id': int})
+        
+    def show_status(self):
+        print(self.read_stat)
+
+    def auto_update(self, order_object):
+        main_csv = self.read_stat
+        if order_object.payment_status() == "True":
             for name in Cart.cart.keys():
                 for i in Cart.cart[name].keys():
                     size = i
@@ -27,17 +58,6 @@ class Auto_Update:
                         quantity = j
                     main_csv.loc[(main_csv['stock_name'] == name) & (
                     main_csv['size'] == size), 'current_stock'] -= quantity
-        else:
-            pass
-
-
-# this class updates the dataframe when the admin wants, either with file or terminal input.
-class Update:
-
-    def __init__(self, warehouse_file):
-        self.warehouse_file = warehouse_file
-        self.stock = pd.read_csv(warehouse_file, dtype={
-                                 'id': int, 'current_stock': int, 'price': float, 'wearhouse_id': int})
 
     def update_with_file(self, update_file):
         if update_file.endswith('.csv'):

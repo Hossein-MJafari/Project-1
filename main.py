@@ -1,8 +1,11 @@
 import pandas as pd
-from order import Cart, Payment_data
-from wearhouse import Update, Auto_Update
+from order import *
+from wearhouse import *
 from banking import *
-from logistic import Logistics, Time
+from logistic import *
+
+
+Update_obj = Update("main wearhouse.csv")
 if __name__ == '__main__':
     class Start(Update):
 
@@ -16,22 +19,27 @@ if __name__ == '__main__':
                     print("1.show available products")
                     print("2.show your cart")
                     print("3.payment")
-                    print("0.exit customer mode")
+                    print("0.exit store")
                     customer_menu = int(input("Enter your choice: "))
                     if customer_menu == 1:
                         cart_object = Cart()
-                        return pd.read_csv("main wearhouse.csv")
+                        print(pd.read_csv("main wearhouse.csv"))
                         status = "Continue"
                         while status != "Finish":
-                            product_name = input("Enter product name:")
+                            product_name = input("Enter product name: ")
                             size = input("Enter product's size: ")
-                            quantity = input("Enter product's quantity: ")
-                            cart_object.add_to_cart(product_name, size, quantity)
-                            status = input("Continue Or Finish")
+                            quantity = int(input("Enter product's quantity: "))
+                            cart_object.add_to_cart(database, product_name, size, quantity)
+                            status = input("Continue Or Finish? ")
                     elif customer_menu == 2:
-                        return cart_object
+                        try:
+                            print(cart_object.cart)
+                        except:
+                            print("Your cart is empty!")
                     elif customer_menu == 3:
-                        if not cart_object:
+                        try:
+                            len(cart_object.cart)
+                        except:
                             print("Your cart is empty!")
                         else:
                             name = input("Enter your name: ")
@@ -45,9 +53,9 @@ if __name__ == '__main__':
                             postal_code = input("Enter your postal code: ")
                             address_detail = input("Enter your address detail: ")
                             logistics_object = Logistics(city, state, postal_code, address_detail)
-                            time_object = Time.telling_time(delivery_time)
+                            time_object = Time(delivery_time)
                             order_object.make_payment(card_number)
-                            Auto_Update.auto_update()
+                            Update_obj.auto_update(order_object)
                             Banking.cheking_card()
                             factor_object = Factor(order_object, cart_object)
                     elif customer_menu == 0:
@@ -89,3 +97,7 @@ if __name__ == '__main__':
                         print("Invalid choice! Try again...")
             else:
                 print("Invalid choice!")
+
+
+start = Start("main wearhouse.csv")
+start.start()
