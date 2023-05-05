@@ -31,7 +31,7 @@ class Cart:
                         database["size"] == size)]['price'])[0]) * quantity
         else:
             print(f"{product_name} in size {size} is not available!")
-    pass
+    
 
 
 class Payment_data:
@@ -44,7 +44,7 @@ class Payment_data:
         self.payment_status = None
 
     def payment_status(self):
-        print(self.payment_status)
+        return self.payment_status
 
     def make_payment(self, card_number):
         if len(str(card_number)) == 16:
